@@ -48,7 +48,7 @@ function renderPlace(place, biomes) {
 function createEmptyPlace() {
   const row = document.createElement('tr');
   const empty = row.insertCell();
-  empty.addAttribute('colspan', 3);
+  empty.setAttribute('colspan', 3);
   empty.classList.add('text-muted');
   empty.append('No places yet.');
   return row;
