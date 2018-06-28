@@ -14,6 +14,7 @@ export function refreshPlaces(container, places, biomes) {
     container.dataset.empty = true;
     container.append(createEmptyPlace());
   } else {
+    delete container.dataset.empty;
     container.append(renderPlaces(places, biomes));
   }
 }
@@ -25,6 +26,15 @@ export function getPlace(form) {
     xyz: `${form['place-x'].value} ${y} ${form['place-z'].value}`,
     biome: form['place-biome'].value
   };
+}
+
+export function createEmptyPlace() {
+  const row = document.createElement('tr');
+  const empty = row.insertCell();
+  empty.setAttribute('colspan', 3);
+  empty.classList.add('text-muted');
+  empty.append('No places yet.');
+  return row;
 }
 
 // helpers
@@ -45,19 +55,10 @@ function renderPlace(place, biomes) {
   return row;
 }
 
-function createEmptyPlace() {
-  const row = document.createElement('tr');
-  const empty = row.insertCell();
-  empty.setAttribute('colspan', 3);
-  empty.classList.add('text-muted');
-  empty.append('No places yet.');
-  return row;
-}
-
 function createBiomeTag(biome) {
   const frag = document.createDocumentFragment();
   const icon = document.createElement('span');
-  icon.classList.add('icon', 'mr-3');
+  icon.classList.add('icon', 'mr-2');
   icon.style.backgroundPosition = biome.icon;
   icon.title = biome.name;
   frag.append(icon);

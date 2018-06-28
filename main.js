@@ -1,5 +1,5 @@
 import Storage from './Storage.js';
-import { addPlace, refreshPlaces, getPlace } from './places.js';
+import { addPlace, refreshPlaces, getPlace, createEmptyPlace } from './places.js';
 import { loadJSON, downloadJSON, createUploader } from './file-io.js';
 import { clearElement } from './dom-util.js';
 
@@ -53,6 +53,8 @@ window.addEventListener('DOMContentLoaded', async () => {
     places = [];
     storage.remove('places');
     clearElement(container);
+    container.dataset.empty = true;
+    container.append(createEmptyPlace());
   });
 });
 
