@@ -1,0 +1,14 @@
+body {
+	background: url('images/bg.png') no-repeat fixed top/cover #808080;
+}
+
+.container {
+	box-shadow: 0 0 16px rgba(0,0,0,.25);
+}
+
+.icon {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	background-image: url('images/biomes.png');
+}
