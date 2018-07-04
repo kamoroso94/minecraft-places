@@ -1,5 +1,5 @@
 import Storage from './Storage.js';
-import { addPlace, refreshPlaces, getPlace, createEmptyPlace } from './places.js';
+import { addPlace, removePlace, refreshPlaces, getPlace, createEmptyPlace } from './places.js';
 import { loadJSON, downloadJSON, createUploader } from './file-io.js';
 import { clearElement } from './dom-util.js';
 
@@ -55,6 +55,24 @@ window.addEventListener('DOMContentLoaded', async () => {
     container.dataset.empty = true;
     container.append(createEmptyPlace());
   });
+
+  const deleteModal = document.getElementById('delete-modal');
+  $(deleteModal).on('show.bs.modal', event => {
+    const title = document.getElementById('delete-place-title');
+    const button = event.relatedTarget;
+    const index = button.dataset.placeIndex;
+    delete button.dataset.placeIndex;
+    title.textContent = places[index].title;
+    deleteModal.dataset.placeIndex = index;
+  });
+  const deleteModalButton = document.getElementById('delete-modal-btn');
+  deleteModalButton.addEventListener('click', () => {
+    const index = deleteModal.dataset.placeIndex;
+    delete deleteModal.dataset.placeIndex;
+    places.splice(index, 1);
+    storage.set('places', places);
+    removePlace(container, index);
+  });
 });
 
 function createBiomeSelect(biomes) {
@@ -62,18 +80,21 @@ function createBiomeSelect(biomes) {
   select.setAttribute('id', 'place-biome');
   select.classList.add('custom-select');
 
-  for(const index in biomes) {
-    const option = document.createElement('option');
-    option.setAttribute('name', biomes[index].id);
-    option.setAttribute('value', index);
-    option.append(biomes[index].name);
-    select.add(option);
-  }
+  Object.entries(biomes)
+    .sort(([, biome1], [, biome2]) => {
+      return biome1.name.localeCompare(biome2.name);
+    })
+    .forEach(([index, biome]) => {
+      const option = document.createElement('option');
+      option.setAttribute('name', biome.id);
+      option.setAttribute('value', index);
+      option.append(biome.name);
+      select.add(option);
+    });
 
   const unknown = select.namedItem('unknown');
   unknown.setAttribute('selected', true);
-  select.removeChild(unknown);
-  select.prepend(unknown);
+  select.firstElementChild.before(unknown);
 
   return select;
 }

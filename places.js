@@ -1,4 +1,4 @@
-import { clearElement } from './dom-util.js';
+import { clearElement, setAttributes, createIconButton } from './dom-util.js';
 
 export function addPlace(container, place, biomes) {
   if(container.dataset && container.dataset.empty) {
@@ -6,6 +6,14 @@ export function addPlace(container, place, biomes) {
     delete container.dataset.empty;
   }
   container.append(renderPlace(place, biomes));
+}
+
+export function removePlace(container, index) {
+  container.children[index].remove();
+  if(container.childElementCount > 0) return;
+
+  container.dataset.empty = true;
+  container.append(createEmptyPlace());
 }
 
 export function refreshPlaces(container, places, biomes) {
@@ -31,7 +39,7 @@ export function getPlace(form) {
 export function createEmptyPlace() {
   const row = document.createElement('tr');
   const empty = row.insertCell();
-  empty.setAttribute('colspan', 3);
+  empty.setAttribute('colspan', 4);
   empty.classList.add('text-muted');
   empty.append('No places yet.');
   return row;
@@ -52,16 +60,60 @@ function renderPlace(place, biomes) {
   row.insertCell().append(place.title);
   row.insertCell().append(place.xyz);
   row.insertCell().append(createBiomeTag(biomes[place.biome]));
+  row.insertCell().append(createOptions());
   return row;
 }
 
 function createBiomeTag(biome) {
   const frag = document.createDocumentFragment();
   const icon = document.createElement('span');
-  icon.classList.add('icon', 'mr-2');
+  icon.classList.add('biome-icon', 'mr-2');
   icon.style.backgroundPosition = biome.icon;
   icon.title = biome.name;
   frag.append(icon);
   frag.append(biome.name);
   return frag;
+}
+
+function createOptions() {
+  const group = document.createElement('div');
+  group.classList.add('btn-group');
+
+  const upButton = createIconButton('chevron-up');
+  upButton.addEventListener('click', movePlaceUp);
+  const downButton = createIconButton('chevron-down');
+  downButton.addEventListener('click', movePlaceDown);
+  const deleteButton = createIconButton('trash', 'danger');
+  deleteButton.addEventListener('click', alertRemove);
+  group.append(upButton, downButton, deleteButton);
+
+  return group;
+}
+
+// TODO: make places var reflect DOM
+//  or someting so that everything is synced
+//  Is var even necessary?  Should we just
+//  use storage and refresh?  Oi...
+
+function movePlaceUp() {
+  const row = this.closest('tr');
+  const rowAbove = row.previousElementSibling;
+  if(rowAbove) {
+    rowAbove.before(row);
+  }
+}
+
+function movePlaceDown() {
+  const row = this.closest('tr');
+  const rowBelow = row.nextElementSibling;
+  if(rowBelow) {
+    rowBelow.after(row);
+  }
+}
+
+function alertRemove() {
+  const row = this.closest('tr');
+  const index = Array.from(row.parentNode.children).indexOf(row);
+  this.dataset.placeIndex = index;
+  $('#delete-modal').modal('show', this);
 }
