@@ -31,25 +31,24 @@ window.addEventListener('DOMContentLoaded', async () => {
 
   placeForm.querySelector('fieldset').removeAttribute('disabled');
 
-  document.getElementById('import').addEventListener('click', () => {
-    if(places.length > 0) {
-      const accepted = confirm('Are you sure you want to overwrite the current data?');
-      if(!accepted) return;
-    }
-
+  $('#import-modal').on('show.bs.modal', event => {
+    if(places.length > 0) return;
+    event.preventDefault();
     uploader.click();
   });
+  const importModalButton = document.getElementById('import-modal-btn');
+  importModalButton.addEventListener('click', () => uploader.click());
 
   document.getElementById('export').addEventListener('click', () => {
     downloadJSON(places, 'places.json');
   });
 
-  document.getElementById('reset').addEventListener('click', () => {
-    if(places.length == 0) return;
-
-    const accepted = confirm('Are you sure you want to reset the current data?');
-    if(!accepted) return;
-
+  $('#reset-modal').on('show.bs.modal', event => {
+    if(places.length > 0) return;
+    event.preventDefault();
+  });
+  const resetModalButton = document.getElementById('reset-modal-btn');
+  resetModalButton.addEventListener('click', () => {
     places = [];
     storage.remove('places');
     clearElement(container);
