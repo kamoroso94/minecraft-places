@@ -1,7 +1,6 @@
 import Storage from './Storage.js';
-import { addPlace, removePlace, refreshPlaces, getPlace, createEmptyPlace } from './places.js';
+import Places from './Places.js';
 import { loadJSON, downloadJSON, createUploader } from './file-io.js';
-import { clearElement } from './dom-util.js';
 
 window.addEventListener('DOMContentLoaded', async () => {
   const biomes = await loadJSON('biomes.json');
@@ -9,30 +8,30 @@ window.addEventListener('DOMContentLoaded', async () => {
 
   const storage = new Storage();
   const container = document.getElementById('places-container');
-  let places = storage.get('places') || [];
-  storage.set('places', places);
-  refreshPlaces(container, places, biomes);
+  const places = new Places(storage, container, biomes);
+  places.refresh();
 
-  const uploader = createUploader('#places-uploader', event => {
-    places = JSON.parse(event.target.result);
-    storage.set('places', places);
-    refreshPlaces(container, places, biomes);
+  const clipboard = new ClipboardJS('#places-container .btn .fa-copy', {
+    target(trigger) {
+      return trigger.closest('tr').cells[1];
+    }
+  });
+
+  const uploader = createUploader('#places-uploader', (event) => {
+    places.cache = JSON.parse(event.target.result);
+    places.refresh();
   });
 
   const placeForm = document.querySelector('form');
-  placeForm.addEventListener('submit', event => {
+  placeForm.addEventListener('submit', (event) => {
     event.preventDefault();
-    const place = getPlace(placeForm);
-
-    places.push(place);
-    storage.set('places', places);
-    addPlace(container, place, biomes);
+    places.add(getPlace(placeForm));
   });
 
-  placeForm.querySelector('fieldset').removeAttribute('disabled');
+  placeForm.querySelector('fieldset').disabled = false;
 
-  $('#import-modal').on('show.bs.modal', event => {
-    if(places.length > 0) return;
+  $('#import-modal').on('show.bs.modal', (event) => {
+    if(!places.isEmpty()) return;
     event.preventDefault();
     uploader.click();
   });
@@ -40,38 +39,30 @@ window.addEventListener('DOMContentLoaded', async () => {
   importModalButton.addEventListener('click', () => uploader.click());
 
   document.getElementById('export').addEventListener('click', () => {
-    downloadJSON(places, 'places.json');
+    downloadJSON(places.cache, 'places.json');
   });
 
-  $('#reset-modal').on('show.bs.modal', event => {
-    if(places.length > 0) return;
+  $('#reset-modal').on('show.bs.modal', (event) => {
+    if(!places.isEmpty()) return;
     event.preventDefault();
   });
   const resetModalButton = document.getElementById('reset-modal-btn');
-  resetModalButton.addEventListener('click', () => {
-    places = [];
-    storage.remove('places');
-    clearElement(container);
-    container.dataset.empty = true;
-    container.append(createEmptyPlace());
-  });
+  resetModalButton.addEventListener('click', () => places.clear());
 
   const deleteModal = document.getElementById('delete-modal');
-  $(deleteModal).on('show.bs.modal', event => {
+  $(deleteModal).on('show.bs.modal', (event) => {
     const title = document.getElementById('delete-place-title');
     const button = event.relatedTarget;
     const index = button.dataset.placeIndex;
     delete button.dataset.placeIndex;
-    title.textContent = places[index].title;
+    title.textContent = places.item(index).title;
     deleteModal.dataset.placeIndex = index;
   });
   const deleteModalButton = document.getElementById('delete-modal-btn');
   deleteModalButton.addEventListener('click', () => {
     const index = deleteModal.dataset.placeIndex;
     delete deleteModal.dataset.placeIndex;
-    places.splice(index, 1);
-    storage.set('places', places);
-    removePlace(container, index);
+    places.remove(index);
   });
 });
 
@@ -81,20 +72,27 @@ function createBiomeSelect(biomes) {
   select.classList.add('custom-select');
 
   Object.entries(biomes)
-    .sort(([, biome1], [, biome2]) => {
-      return biome1.name.localeCompare(biome2.name);
-    })
-    .forEach(([index, biome]) => {
+    .sort(([, {name: a}], [, {name: b}]) => a.localeCompare(b))
+    .forEach(([index, {id, name}]) => {
       const option = document.createElement('option');
-      option.setAttribute('name', biome.id);
+      option.setAttribute('name', id);
       option.setAttribute('value', index);
-      option.append(biome.name);
+      option.append(name);
       select.add(option);
     });
 
   const unknown = select.namedItem('unknown');
   unknown.setAttribute('selected', true);
-  select.firstElementChild.before(unknown);
+  select.prepend(unknown);
 
   return select;
+}
+
+function getPlace(form) {
+  const y = form['place-y'].value || '~';
+  return {
+    title: form['place-title'].value,
+    xyz: `${form['place-x'].value} ${y} ${form['place-z'].value}`,
+    biome: form['place-biome'].value
+  };
 }

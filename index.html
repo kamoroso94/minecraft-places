@@ -9,7 +9,7 @@
     <meta name="author" content="Kyle Amoroso" />
     <meta name="description" content="Keep track of key locations in your Minecraft world." />
     <meta name="keywords" content="minecraft,notes,log,coordinates" />
-    <meta name="version" content="1.0" />
+    <meta name="version" content="1.1" />
     <meta property="og:url" content="https://kamoroso94.github.io/minecraft-places/" />
     <meta property="og:title" content="Minecraft Places" />
     <meta property="og:description" content="Keep track of key locations in your Minecraft world." />
@@ -21,11 +21,14 @@
     <link rel="icon" type="image/png" href="icons/favicon-64.png" />
     <link rel="icon" type="image/png" href="icons/favicon-128.png" />
 
+    <!-- Bootstrap -->
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
       integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
       crossorigin="anonymous" />
+
+    <!-- FontAwesome -->
 		<link
 			rel="stylesheet"
 			href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
@@ -44,7 +47,7 @@
       </header>
 
       <h3>Add New Place</h3>
-      <form class="" autocomplete="off">
+      <form autocomplete="off">
         <fieldset disabled>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
@@ -52,6 +55,7 @@
             </div>
             <input
               type="text"
+              maxlength="32"
               class="form-control"
               id="place-title"
               placeholder="Title"
@@ -98,21 +102,23 @@
       </form>
 
       <h3 class="mt-3">Places</h3>
-      <table class="table table-hover">
-        <thead class="thead-light">
-          <tr>
-            <th>Title</th>
-            <th>XYZ</th>
-            <th>Biome</th>
-            <th>Options</th>
-          </tr>
-        </thead>
-        <tbody id="places-container">
-          <tr>
-            <td colspan="3" class="text-muted">Loading…</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Title</th>
+              <th scope="col">XYZ</th>
+              <th scope="col">Biome</th>
+              <th scope="col">Options</th>
+            </tr>
+          </thead>
+          <tbody id="places-container">
+            <tr>
+              <td colspan="3" class="text-muted">Loading…</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <div>
         <button class="btn btn-success" data-toggle="modal" data-target="#import-modal">Import</button>
         <input type="file" accept=".json" id="places-uploader" class="uploader" aria-hidden="true" />
@@ -120,11 +126,11 @@
         <button class="btn btn-danger" data-toggle="modal" data-target="#reset-modal" id="reset">Reset</button>
       </div>
 
-      <footer class="font-small py-4">
+      <footer class="font-small py-5">
         <p class="text-muted text-center">Created by Kyle Amoroso in 2015.</p>
       </footer>
 
-			<!-- Modals -->
+			<!-- Import Modal -->
 	    <div class="modal fade" id="import-modal" tabindex="-1" role="dialog" aria-labelledby="import-modal-title" aria-hidden="true">
 	      <div class="modal-dialog" role="document">
 	        <div class="modal-content">
@@ -139,12 +145,13 @@
 	          </div>
 	          <div class="modal-footer">
 	            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-	            <button type="button" class="btn btn-primary" id="import-modal-btn" data-dismiss="modal">Import</button>
+	            <button type="button" class="btn btn-success" id="import-modal-btn" data-dismiss="modal">Import</button>
 	          </div>
 	        </div>
 	      </div>
 	    </div>
 
+			<!-- Reset Modal -->
 	    <div class="modal fade" id="reset-modal" tabindex="-1" role="dialog" aria-labelledby="reset-modal-title" aria-hidden="true">
 	      <div class="modal-dialog" role="document">
 	        <div class="modal-content">
@@ -159,12 +166,13 @@
 	          </div>
 	          <div class="modal-footer">
 	            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-	            <button type="button" class="btn btn-primary" id="reset-modal-btn" data-dismiss="modal">Reset</button>
+	            <button type="button" class="btn btn-danger" id="reset-modal-btn" data-dismiss="modal">Reset</button>
 	          </div>
 	        </div>
 	      </div>
 	    </div>
 
+		  <!-- Delete Modal -->
 			<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="delete-modal-title" aria-hidden="true">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
@@ -179,13 +187,14 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-							<button type="button" class="btn btn-primary" id="delete-modal-btn" data-dismiss="modal">Delete</button>
+							<button type="button" class="btn btn-danger" id="delete-modal-btn" data-dismiss="modal">Delete</button>
 						</div>
 					</div>
 				</div>
 			</div>
     </div>
 
+    <!-- JQuery + Bootstrap -->
 		<script
 			src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 			integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -194,5 +203,8 @@
 			src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
 			integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
 			crossorigin="anonymous"></script>
+
+    <!-- ClipboardJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
   </body>
 </html>

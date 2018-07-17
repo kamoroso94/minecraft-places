@@ -1,6 +1,11 @@
 body {
 	background-color: #808080;
-	background-image: url('images/bg.png');
+	background-image:
+		linear-gradient(
+			rgba(255,255,255,.5),
+			rgba(255,255,255,.5)
+		),
+		url('images/bg.png');
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-position: top;
@@ -8,6 +13,11 @@ body {
 }
 
 .container { box-shadow: 0 .5rem 1rem rgba(0,0,0,.25); }
+
+#places-container th,
+#places-container td {
+	vertical-align: middle;
+}
 
 .biome-icon {
   display: inline-block;

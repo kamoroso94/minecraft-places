@@ -4,22 +4,26 @@ export function clearElement(elem) {
   }
 }
 
-export function setAttributes(elem, attributes) {
-  for(const attr in attributes) {
-    elem.setAttribute(attr, attributes[attr]);
-  }
-}
-
-export function createIconButton(name, variant='light') {
+export function createIconButton(name, variant) {
   const button = document.createElement('button');
-  setAttributes(button, {
-    'type': 'button',
-    'class': `btn btn-${variant}`
-  });
+  button.setAttribute('type', 'button');
+  button.classList.add('btn');
+  button.classList.toggle(`btn-${variant}`, variant != null);
 
   const icon = document.createElement('span');
   icon.classList.add('fas', `fa-${name}`);
   button.append(icon);
 
   return button;
+}
+
+export function createBiomeTag(biome) {
+  const frag = document.createDocumentFragment();
+  const icon = document.createElement('span');
+  icon.classList.add('biome-icon', 'mr-2');
+  icon.style.backgroundPosition = biome.icon;
+  icon.title = biome.name;
+  frag.append(icon);
+  frag.append(biome.name);
+  return frag;
 }

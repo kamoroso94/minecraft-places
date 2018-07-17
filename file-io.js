@@ -20,7 +20,7 @@ export function downloadJSON(data, filename='data.json') {
 export function createUploader(selector, callback) {
   const uploader = document.querySelector(selector);
 
-  uploader.addEventListener('change', event => {
+  uploader.addEventListener('change', (event) => {
     event.preventDefault();
 
     const reader = new FileReader();
