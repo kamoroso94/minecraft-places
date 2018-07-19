@@ -1,12 +1,13 @@
 import Storage from './Storage.js';
 import Places from './Places.js';
 import { loadJSON, downloadJSON, createUploader } from './file-io.js';
+import { initImportModal, initResetModal, initDeleteModal, initUpdateModal } from './init-modals.js';
 
 window.addEventListener('DOMContentLoaded', async () => {
+  const storage = new Storage();
   const biomes = await loadJSON('biomes.json');
   document.getElementById('place-biome').replaceWith(createBiomeSelect(biomes));
 
-  const storage = new Storage();
   const container = document.getElementById('places-container');
   const places = new Places(storage, container, biomes);
   places.refresh();
@@ -22,6 +23,10 @@ window.addEventListener('DOMContentLoaded', async () => {
     places.refresh();
   });
 
+  document.getElementById('export').addEventListener('click', () => {
+    downloadJSON(places.cache, 'places.json');
+  });
+
   const placeForm = document.querySelector('form');
   placeForm.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -30,40 +35,10 @@ window.addEventListener('DOMContentLoaded', async () => {
 
   placeForm.querySelector('fieldset').disabled = false;
 
-  $('#import-modal').on('show.bs.modal', (event) => {
-    if(!places.isEmpty()) return;
-    event.preventDefault();
-    uploader.click();
-  });
-  const importModalButton = document.getElementById('import-modal-btn');
-  importModalButton.addEventListener('click', () => uploader.click());
-
-  document.getElementById('export').addEventListener('click', () => {
-    downloadJSON(places.cache, 'places.json');
-  });
-
-  $('#reset-modal').on('show.bs.modal', (event) => {
-    if(!places.isEmpty()) return;
-    event.preventDefault();
-  });
-  const resetModalButton = document.getElementById('reset-modal-btn');
-  resetModalButton.addEventListener('click', () => places.clear());
-
-  const deleteModal = document.getElementById('delete-modal');
-  $(deleteModal).on('show.bs.modal', (event) => {
-    const title = document.getElementById('delete-place-title');
-    const button = event.relatedTarget;
-    const index = button.dataset.placeIndex;
-    delete button.dataset.placeIndex;
-    title.textContent = places.item(index).title;
-    deleteModal.dataset.placeIndex = index;
-  });
-  const deleteModalButton = document.getElementById('delete-modal-btn');
-  deleteModalButton.addEventListener('click', () => {
-    const index = deleteModal.dataset.placeIndex;
-    delete deleteModal.dataset.placeIndex;
-    places.remove(index);
-  });
+  initImportModal('import-modal', places, uploader);
+  initResetModal('reset-modal', places);
+  initDeleteModal('delete-modal', places);
+  initUpdateModal('update-modal', storage);
 });
 
 function createBiomeSelect(biomes) {

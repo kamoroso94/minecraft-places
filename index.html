@@ -9,7 +9,7 @@
     <meta name="author" content="Kyle Amoroso" />
     <meta name="description" content="Keep track of key locations in your Minecraft world." />
     <meta name="keywords" content="minecraft,notes,log,coordinates" />
-    <meta name="version" content="1.1" />
+    <meta name="version" content="1.1.1" />
     <meta property="og:url" content="https://kamoroso94.github.io/minecraft-places/" />
     <meta property="og:title" content="Minecraft Places" />
     <meta property="og:description" content="Keep track of key locations in your Minecraft world." />
@@ -41,9 +41,16 @@
 
   <body>
     <div class="container bg-white">
-      <header class="py-4">
-        <h1 class="display-4">Minecraft Places</h1>
-        <p class="lead">Keep track of key locations in your Minecraft world.</p>
+      <header class="py-4 clearfix">
+        <div class="float-left">
+          <h1 class="display-4">Minecraft Places</h1>
+          <p class="lead">Keep track of key locations in your Minecraft world.</p>
+        </div>
+        <div class="float-right">
+          <a href="#update-modal" role="button" class="text-info" data-toggle="modal" data-target="#update-modal">
+            <span class="fas fa-gift"></span> What's new?
+          </a>
+        </div>
       </header>
 
       <h3>Add New Place</h3>
@@ -126,18 +133,19 @@
         <button class="btn btn-danger" data-toggle="modal" data-target="#reset-modal" id="reset">Reset</button>
       </div>
 
-      <footer class="font-small py-5">
-        <p class="text-muted text-center">Created by Kyle Amoroso in 2015.</p>
+      <footer class="text-muted py-5">
+        <p class="font-small text-center">Created by Kyle Amoroso in 2015.</p>
       </footer>
+      <!-- END content -->
 
 			<!-- Import Modal -->
 	    <div class="modal fade" id="import-modal" tabindex="-1" role="dialog" aria-labelledby="import-modal-title" aria-hidden="true">
 	      <div class="modal-dialog" role="document">
 	        <div class="modal-content">
 	          <div class="modal-header">
-	            <h5 class="modal-title" id="import-modal-title">Confirm Overwrite</h5>
+	            <h5 class="modal-title">Confirm Overwrite</h5>
 	            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	              <span aria-hidden="true">&times;</span>
+	              <span aria-hidden="true">×</span>
 	            </button>
 	          </div>
 	          <div class="modal-body">
@@ -156,9 +164,9 @@
 	      <div class="modal-dialog" role="document">
 	        <div class="modal-content">
 	          <div class="modal-header">
-	            <h5 class="modal-title" id="reset-modal-title">Confirm Reset</h5>
+	            <h5 class="modal-title">Confirm Reset</h5>
 	            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	              <span aria-hidden="true">&times;</span>
+	              <span aria-hidden="true">×</span>
 	            </button>
 	          </div>
 	          <div class="modal-body">
@@ -177,13 +185,13 @@
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title" id="delete-modal-title">Confirm Delete</h5>
+							<h5 class="modal-title">Confirm Delete</h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
+								<span aria-hidden="true">×</span>
 							</button>
 						</div>
 						<div class="modal-body">
-							<p>Are you sure you want to delete <span id="delete-place-title"></span>?</p>
+							<p>Are you sure you want to delete <span id="delete-modal-place-title"></span>?</p>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -192,7 +200,56 @@
 					</div>
 				</div>
 			</div>
+
+      <!-- Update Modal -->
+      <div class="modal fade" id="update-modal" tabindex="-1" role="dialog" aria-labelledby="update-modal-title" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header align-items-baseline">
+              <h5 class="modal-title">Minecraft Places</h5>
+              <h6 class="modal-title text-muted ml-2">Version <span id="update-modal-version"></span></h6>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Welcome to the newest update! As you'll be able to tell, I've
+                been hard at work on making improvements.  You'll also be able
+                to view the project repository.  Check them out below.
+              </p>
+              <ul class="list-unstyled list-icon">
+                <li>
+                  <span class="fas fa-plus-square text-success"></span>
+                  New update log!  Track the latest changes to this project.
+                </li>
+                <li>
+                  <span class="fas fa-pen-square text-info"></span>
+                  Upgraded biomes list to include those introduced in the Update Aquatic!
+                </li>
+                <li>
+                  <span class="fas fa-plus-square text-success"></span>
+                  Added edit feature for modifying places.
+                </li>
+                <li>
+                  <span class="fas fa-pen-square text-info"></span>
+                  Moved option buttons to a dropdown.
+                </li>
+              </ul>
+            </div>
+            <div class="modal-footer">
+              <a href="https://github.com/kamoroso94/minecraft-places/" class="btn btn-dark">
+                <span class="fab fa-github mr-1"></span>
+                GitHub
+              </a>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- END .container -->
     </div>
+
 
     <!-- JQuery + Bootstrap -->
 		<script
