@@ -1,7 +1,8 @@
 import Storage from './Storage.js';
 import Places from './Places.js';
+import PlaceUI from './PlaceUI.js';
 import { loadJSON, downloadJSON, createUploader } from './file-io.js';
-import { initImportModal, initResetModal, initDeleteModal, initUpdateModal } from './init-modals.js';
+import { initImportModal, initResetModal, initUpdateModal } from './init-modals.js';
 
 window.addEventListener('DOMContentLoaded', async () => {
   const storage = new Storage();
@@ -9,14 +10,11 @@ window.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('place-biome').replaceWith(createBiomeSelect(biomes));
 
   const container = document.getElementById('places-container');
-  const places = new Places(storage, container, biomes);
+  const placeUI = new PlaceUI(document.querySelector('form'), biomes);
+  const places = new Places(container, placeUI, biomes, storage);
   places.refresh();
 
-  const clipboard = new ClipboardJS('#places-container .btn .fa-copy', {
-    target(trigger) {
-      return trigger.closest('tr').cells[1];
-    }
-  });
+  const clipboard = new ClipboardJS('#places-container .btn[data-clipboard-text]');
 
   const uploader = createUploader('#places-uploader', (event) => {
     places.cache = JSON.parse(event.target.result);
@@ -27,17 +25,10 @@ window.addEventListener('DOMContentLoaded', async () => {
     downloadJSON(places.cache, 'places.json');
   });
 
-  const placeForm = document.querySelector('form');
-  placeForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    places.add(getPlace(placeForm));
-  });
-
-  placeForm.querySelector('fieldset').disabled = false;
+  placeUI.form.querySelector('fieldset').disabled = false;
 
   initImportModal('import-modal', places, uploader);
   initResetModal('reset-modal', places);
-  initDeleteModal('delete-modal', places);
   initUpdateModal('update-modal', storage);
 });
 
@@ -61,13 +52,4 @@ function createBiomeSelect(biomes) {
   select.prepend(unknown);
 
   return select;
-}
-
-function getPlace(form) {
-  const y = form['place-y'].value || '~';
-  return {
-    title: form['place-title'].value,
-    xyz: `${form['place-x'].value} ${y} ${form['place-z'].value}`,
-    biome: form['place-biome'].value
-  };
 }
