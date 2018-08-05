@@ -1,11 +1,18 @@
 import { clearElement, createIconButton, createBiomeTag } from './dom-util.js';
 
 export default class Places {
-  constructor(storage, container, biomes) {
+  constructor(container, placeUI, biomes, storage) {
+    this.container = container;
+    this.placeUI = placeUI;
+    this.biomes = biomes;
     this.storage = storage;
     this.cache = storage.get('places') || [];
-    this.biomes = biomes;
-    this.container = container;
+
+    placeUI.addEventListener('add', (event) => this.add(event.detail.place));
+    placeUI.addEventListener('edit', (event) => {
+      const {place, index} = event.detail;
+      this.replace(index, place);
+    });
 
     this.moveUp = (event) => {
       const row = event.target.closest('tr');
@@ -27,23 +34,22 @@ export default class Places {
       this.storage.set('places', this.cache);
       rowBelow.after(row);
     };
-  }
+    this.edit = (event) => {
+      const row = event.target.closest('tr');
+      const index = row.rowIndex - 1;
+      this.placeUI.renderEdit(this.cache[index], index);
+    };
+    this.remove = (event) => {
+      const row = event.target.closest('tr');
+      const index = row.rowIndex - 1;
+      this.cache.splice(index, 1);
+      this.storage.set('places', this.cache);
+      row.remove();
 
-  isEmpty() {
-    return this.cache.length == 0;
-  }
-
-  clear() {
-    this.cache = [];
-    this.refresh();
-  }
-
-  item(index) {
-    return this.cache[index];
-  }
-
-  size() {
-    return this.cache.length;
+      if(this.container.childElementCount == 0) {
+        this.container.append(createEmptyPlace());
+      }
+    };
   }
 
   refresh() {
@@ -64,14 +70,28 @@ export default class Places {
     this.container.append(renderPlace(this.size() - 1, this));
   }
 
-  remove(index) {
-    this.cache.splice(index, 1);
+  replace(index, place) {
+    this.cache[index] = place;
     this.storage.set('places', this.cache);
-    this.container.children[index].remove();
+    const placeRow = renderPlace(index, this);
+    this.container.children[index].replaceWith(placeRow);
+  }
 
-    if(this.container.childElementCount == 0) {
-      this.container.append(createEmptyPlace());
-    }
+  isEmpty() {
+    return this.cache.length == 0;
+  }
+
+  clear() {
+    this.cache = [];
+    this.refresh();
+  }
+
+  item(index) {
+    return this.cache[index];
+  }
+
+  size() {
+    return this.cache.length;
   }
 }
 
@@ -102,35 +122,34 @@ function renderPlace(index, places) {
   row.append(title);
   row.insertCell().append(place.xyz);
   row.insertCell().append(createBiomeTag(places.biomes[place.biome]));
-  row.insertCell().append(createOptions(places.moveUp, places.moveDown));
+  row.insertCell().append(createOptions(index, places));
   return row;
 }
 
-function createOptions(moveUp, moveDown) {
+function createOptions(index, places) {
+  const place = places.item(index);
+
   const group = document.createElement('div');
   group.classList.add('btn-group');
 
   const upButton = createIconButton('chevron-up');
   upButton.title = "Move up";
-  upButton.addEventListener('click', moveUp);
+  upButton.addEventListener('click', places.moveUp);
   const downButton = createIconButton('chevron-down');
   downButton.title = "Move down";
-  downButton.addEventListener('click', moveDown);
+  downButton.addEventListener('click', places.moveDown);
   const copyButton = createIconButton('copy');
+  copyButton.dataset.clipboardText = place.xyz;
   copyButton.title = "Copy";
+  const editButton = createIconButton('edit');
+  editButton.title = 'Edit';
+  editButton.addEventListener('click', places.edit);
   const deleteButton = createIconButton('trash', 'danger');
   deleteButton.title = "Delete";
-  deleteButton.addEventListener('click', alertRemove);
-  group.append(upButton, downButton, copyButton, deleteButton);
+  deleteButton.addEventListener('click', places.remove);
+  group.append(upButton, downButton, copyButton, editButton, deleteButton);
 
   return group;
-}
-
-function alertRemove(event) {
-  const row = event.target.closest('tr');
-  const index = row.rowIndex - 1;
-  this.dataset.placeIndex = index;
-  $('#delete-modal').modal('show', this);
 }
 
 function arraySwap(i, j, array) {
