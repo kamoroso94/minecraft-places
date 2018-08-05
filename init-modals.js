@@ -19,25 +19,6 @@ export function initResetModal(id, places) {
   resetModalButton.addEventListener('click', () => places.clear());
 }
 
-export function initDeleteModal(id, places) {
-  const deleteModal = document.getElementById(id);
-  $(deleteModal).on('show.bs.modal', (event) => {
-    const title = document.getElementById(`${id}-place-title`);
-    const button = event.relatedTarget;
-    const index = button.dataset.placeIndex;
-    delete button.dataset.placeIndex;
-    title.textContent = places.item(index).title;
-    deleteModal.dataset.placeIndex = index;
-  });
-
-  const deleteModalButton = document.getElementById(`${id}-btn`);
-    deleteModalButton.addEventListener('click', () => {
-    const index = deleteModal.dataset.placeIndex;
-    delete deleteModal.dataset.placeIndex;
-    places.remove(index);
-  });
-}
-
 export function initUpdateModal(id, storage) {
   const currentVersion = document.head.querySelector('meta[name="version"]').content;
   const cachedVersion = storage.get('version') || '';
@@ -49,15 +30,15 @@ export function initUpdateModal(id, storage) {
   const updateIcon = trigger.querySelector('.fa-gift');
   trigger.addEventListener('click', () => {
     storage.set('update-seen', true);
-    updateIcon.classList.remove('jiggle');
+    updateIcon.classList.remove('wiggle');
   });
-  
+
   // e.g., in version A.B, tease if B has changed
   // i.e, don't care about upgrading from 1.1 to 1.1.1
   if(compareVersions(currentVersion, cachedVersion, 2) > 0) {
     storage.set('update-seen', false);
   }
-  updateIcon.classList.toggle('jiggle', !storage.get('update-seen'));
+  updateIcon.classList.toggle('wiggle', !storage.get('update-seen'));
 }
 
 function compareVersions(ver1, ver2, maxLen) {
