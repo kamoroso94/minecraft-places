@@ -34,8 +34,8 @@ window.addEventListener('DOMContentLoaded', async () => {
 
 function createBiomeSelect(biomes) {
   const select = document.createElement('select');
-  select.setAttribute('id', 'place-biome');
   select.classList.add('custom-select');
+  select.id = 'place-biome';
 
   Object.entries(biomes)
     .sort(([, {name: a}], [, {name: b}]) => a.localeCompare(b))
@@ -48,7 +48,7 @@ function createBiomeSelect(biomes) {
     });
 
   const unknown = select.namedItem('unknown');
-  unknown.setAttribute('selected', true);
+  unknown.selected = true;
   select.prepend(unknown);
 
   return select;
