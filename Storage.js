@@ -12,7 +12,7 @@ export default class Storage {
   }
 
   has(key) {
-    return key in this.storage;
+    return this.storage.getItem(key) != null;
   }
 
   get(key) {
