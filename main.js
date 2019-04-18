@@ -7,7 +7,13 @@ import { initImportModal, initResetModal, initUpdateModal } from './init-modals.
 window.addEventListener('DOMContentLoaded', async () => {
   const storage = new Storage();
   const biomes = await loadJSON('biomes.json');
-  document.getElementById('place-biome').replaceWith(createBiomeSelect(biomes));
+  const biomeSelect = createBiomeSelect(biomes);
+  document.getElementById('place-biome').replaceWith(biomeSelect);
+
+  updateBiomeIcon(biomeSelect.value, '#biome-select-icon', biomes);
+  biomeSelect.addEventListener('change', (event) => {
+    updateBiomeIcon(event.target.value, '#biome-select-icon', biomes);
+  });
 
   const container = document.getElementById('places-container');
   const placeUI = new PlaceUI(document.querySelector('form'), biomes);
@@ -52,4 +58,11 @@ function createBiomeSelect(biomes) {
   select.prepend(unknown);
 
   return select;
+}
+
+function updateBiomeIcon(biomeId, selector, biomes) {
+  const biome = biomes[biomeId];
+  const biomeIcon = document.querySelector(selector);
+  biomeIcon.style.backgroundPosition = biome.icon;
+  biomeIcon.title = biome.name;
 }

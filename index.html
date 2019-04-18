@@ -9,7 +9,7 @@
     <meta name="author" content="Kyle Amoroso" />
     <meta name="description" content="Keep track of key locations in your Minecraft world." />
     <meta name="keywords" content="minecraft,notes,log,coordinates" />
-    <meta name="version" content="1.3.1" />
+    <meta name="version" content="1.4" />
     <meta property="og:url" content="https://kamoroso94.github.io/minecraft-places/" />
     <meta property="og:title" content="Minecraft Places" />
     <meta property="og:description" content="Keep track of key locations in your Minecraft world." />
@@ -100,6 +100,11 @@
               id="place-biome"
               value="Loading…"
               readonly />
+            <div class="input-group-append">
+              <span class="input-group-text">
+                <span class="biome-icon" id="biome-select-icon"></span>
+              </span>
+            </div>
           </div>
           <div class="form-group">
             <button type="submit" class="btn btn-primary" id="place-btn-submit">Add</button>
@@ -204,6 +209,10 @@
                   Upgraded biomes list to include those introduced in the
                   Village &amp; Pillage update!  Namely, the Bamboo Jungle and
                   Bamboo Jungle Hills.
+                </li>
+                <li>
+                  <span class="fas fa-pen-square text-success"></span>
+                  Added biome icon next to biome selection input.
                 </li>
               </ul>
             </div>
