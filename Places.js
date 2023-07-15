@@ -6,7 +6,7 @@ export default class Places {
     this.placeUI = placeUI;
     this.biomes = biomes;
     this.storage = storage;
-    this.cache = storage.get('places') || [];
+    this.cache = storage.get('places') ?? [];
 
     placeUI.addEventListener('add', (event) => this.add(event.detail.place));
     placeUI.addEventListener('edit', (event) => {
@@ -46,7 +46,7 @@ export default class Places {
       this.storage.set('places', this.cache);
       row.remove();
 
-      if (this.container.childElementCount == 0) {
+      if (this.container.childElementCount === 0) {
         this.container.append(createEmptyPlace());
       }
     };
@@ -78,7 +78,7 @@ export default class Places {
   }
 
   isEmpty() {
-    return this.cache.length == 0;
+    return this.cache.length === 0;
   }
 
   clear() {

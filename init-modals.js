@@ -23,7 +23,7 @@ export function initUpdateModal(id, storage) {
   const currentVersion = document.head.querySelector(
     'meta[name="version"]'
   ).content;
-  const cachedVersion = storage.get('version') || '';
+  const cachedVersion = storage.get('version') ?? '';
 
   storage.set('version', currentVersion);
   document.getElementById(`${id}-version`).textContent = currentVersion;
@@ -50,8 +50,8 @@ function compareVersions(ver1, ver2, maxLen) {
 
   const len = Math.max(ver1Arr.length, ver2Arr.length);
   for (let i = 0; i < len; i++) {
-    if (i == ver1Arr.length) return -1;
-    if (i == ver2Arr.length) return 1;
+    if (i === ver1Arr.length) return -1;
+    if (i === ver2Arr.length) return 1;
     if (ver1Arr[i] < ver2Arr[i]) return -1;
     if (ver1Arr[i] > ver2Arr[i]) return 1;
   }

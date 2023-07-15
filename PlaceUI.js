@@ -21,7 +21,7 @@ export default class PlaceUI extends EventTarget {
     });
 
     this.secondBtn.addEventListener('click', () => {
-      if (this.mode == 'add') {
+      if (this.mode === 'add') {
         this.form.reset();
       } else {
         this.renderAdd();
@@ -72,5 +72,5 @@ function getPlace(form) {
 }
 
 function parseXYZ(xyz) {
-  return xyz.split(' ').map((x) => (x != '~' ? x : ''));
+  return xyz.split(' ').map((x) => (x !== '~' ? x : ''));
 }
