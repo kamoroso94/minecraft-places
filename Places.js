@@ -1,4 +1,4 @@
-import { clearElement, createIconButton, createBiomeTag } from './dom-util.js';
+import {clearElement, createIconButton, createBiomeTag} from './dom-util.js';
 
 export default class Places {
   constructor(container, placeUI, biomes, storage) {
@@ -17,7 +17,7 @@ export default class Places {
     this.moveUp = (event) => {
       const row = event.target.closest('tr');
       const rowAbove = row.previousElementSibling;
-      if(!rowAbove) return;
+      if (!rowAbove) return;
 
       const index = row.rowIndex - 1;
       arraySwap(index, index - 1, this.cache);
@@ -27,7 +27,7 @@ export default class Places {
     this.moveDown = (event) => {
       const row = event.target.closest('tr');
       const rowBelow = row.nextElementSibling;
-      if(!rowBelow) return;
+      if (!rowBelow) return;
 
       const index = row.rowIndex - 1;
       arraySwap(index, index + 1, this.cache);
@@ -46,7 +46,7 @@ export default class Places {
       this.storage.set('places', this.cache);
       row.remove();
 
-      if(this.container.childElementCount == 0) {
+      if (this.container.childElementCount == 0) {
         this.container.append(createEmptyPlace());
       }
     };
@@ -64,7 +64,7 @@ export default class Places {
     this.cache.push(place);
     this.storage.set('places', this.cache);
 
-    if(this.container.firstElementChild.dataset.empty) {
+    if (this.container.firstElementChild.dataset.empty) {
       clearElement(this.container);
     }
     this.container.append(renderPlace(this.size() - 1, this));
@@ -107,7 +107,7 @@ function createEmptyPlace() {
 
 function renderPlaces(places) {
   const frag = document.createDocumentFragment();
-  for(let i = 0; i < places.size(); i++) {
+  for (let i = 0; i < places.size(); i++) {
     frag.append(renderPlace(i, places));
   }
   return frag;
@@ -133,19 +133,19 @@ function createOptions(index, places) {
   group.classList.add('btn-group');
 
   const upButton = createIconButton('chevron-up');
-  upButton.title = "Move up";
+  upButton.title = 'Move up';
   upButton.addEventListener('click', places.moveUp);
   const downButton = createIconButton('chevron-down');
-  downButton.title = "Move down";
+  downButton.title = 'Move down';
   downButton.addEventListener('click', places.moveDown);
   const copyButton = createIconButton('copy');
   copyButton.dataset.clipboardText = place.xyz;
-  copyButton.title = "Copy";
+  copyButton.title = 'Copy';
   const editButton = createIconButton('edit');
   editButton.title = 'Edit';
   editButton.addEventListener('click', places.edit);
   const deleteButton = createIconButton('trash', 'danger');
-  deleteButton.title = "Delete";
+  deleteButton.title = 'Delete';
   deleteButton.addEventListener('click', places.remove);
   group.append(upButton, downButton, copyButton, editButton, deleteButton);
 

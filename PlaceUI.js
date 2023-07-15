@@ -13,7 +13,7 @@ export default class PlaceUI extends EventTarget {
       const place = getPlace(this.form);
       const detail = {
         place,
-        index: this.form.dataset.index
+        index: this.form.dataset.index,
       };
       const placeFormEvent = new CustomEvent(this.mode, {detail});
       this.dispatchEvent(placeFormEvent);
@@ -21,7 +21,7 @@ export default class PlaceUI extends EventTarget {
     });
 
     this.secondBtn.addEventListener('click', () => {
-      if(this.mode == 'add') {
+      if (this.mode == 'add') {
         this.form.reset();
       } else {
         this.renderAdd();
@@ -57,7 +57,7 @@ export default class PlaceUI extends EventTarget {
     this.submitBtn.textContent = 'Save';
     this.secondBtn.textContent = 'Cancel';
 
-    this.title.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    this.title.scrollIntoView({block: 'start', behavior: 'smooth'});
     this.form['place-title'].focus();
   }
 }
@@ -67,10 +67,10 @@ function getPlace(form) {
   return {
     title: form['place-title'].value,
     xyz: `${form['place-x'].value} ${y} ${form['place-z'].value}`,
-    biome: form['place-biome'].value
+    biome: form['place-biome'].value,
   };
 }
 
 function parseXYZ(xyz) {
-  return xyz.split(' ').map(x => x != '~' ? x : '');
+  return xyz.split(' ').map((x) => (x != '~' ? x : ''));
 }
