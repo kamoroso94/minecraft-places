@@ -87,7 +87,7 @@ const upgradeTable = new Map([
 
 /** Upgrades potentially older version of places data. */
 export function upgradePlaces({places, version}) {
-  if (version === PLACES_VERSION) return places;
+  if (version === PLACES_VERSION) return {places, version};
 
   return {
     places: places.map((place) => ({
