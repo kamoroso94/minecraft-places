@@ -36,6 +36,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   });
 
   document.getElementById('export').addEventListener('click', () => {
+    // TODO: kamoroso94 - wait for `window.showSaveFilePicker` support
     downloadJSON(places.cache, 'places.json');
   });
 
