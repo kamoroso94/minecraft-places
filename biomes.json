@@ -1,230 +1,163 @@
 {
-  "0": {"icon": "-16px -32px", "id": "ocean", "name": "Ocean"},
+  "0": {"icon": "-48px -48px", "id": "the_void", "name": "The Void"},
   "1": {"icon": "-32px 0px", "id": "plains", "name": "Plains"},
-  "2": {"icon": "-16px 0px", "id": "desert", "name": "Desert"},
-  "3": {"icon": "-112px 0px", "id": "mountains", "name": "Mountains"},
-  "4": {"icon": "0px 0px", "id": "forest", "name": "Forest"},
-  "5": {"icon": "-96px -48px", "id": "taiga", "name": "Taiga"},
-  "6": {"icon": "-48px 0px", "id": "swamp", "name": "Swamp"},
-  "7": {"icon": "-80px -16px", "id": "river", "name": "River"},
-  "8": {"icon": "-16px -16px", "id": "nether", "name": "Nether"},
-  "9": {"icon": "-32px -16px", "id": "the_end", "name": "The End"},
-  "10": {"icon": "-32px -32px", "id": "frozen_ocean", "name": "Frozen Ocean"},
-  "11": {"icon": "-96px -16px", "id": "frozen_river", "name": "Frozen River"},
-  "12": {"icon": "-80px 0px", "id": "snowy_tundra", "name": "Snowy Tundra"},
-  "13": {
-    "icon": "-64px -32px",
-    "id": "snowy_mountains",
-    "name": "Snowy Mountains"
-  },
-  "14": {
-    "icon": "0px -16px",
-    "id": "mushroom_fields",
-    "name": "Mushroom Fields"
-  },
-  "15": {
-    "icon": "0px -32px",
-    "id": "mushroom_field_shore",
-    "name": "Mushroom Field Shore"
-  },
-  "16": {"icon": "-112px -16px", "id": "beach", "name": "Beach"},
-  "17": {"icon": "-64px -32px", "id": "desert_hills", "name": "Desert Hills"},
-  "18": {"icon": "-64px -32px", "id": "wooded_hills", "name": "Wooded Hills"},
-  "19": {"icon": "-64px -32px", "id": "taiga_hills", "name": "Taiga Hills"},
-  "20": {"icon": "-48px -32px", "id": "mountain_edge", "name": "Mountain Edge"},
-  "21": {"icon": "-64px 0px", "id": "jungle", "name": "Jungle"},
-  "22": {"icon": "-64px -32px", "id": "jungle_hills", "name": "Jungle Hills"},
-  "23": {"icon": "-64px -64px", "id": "jungle_edge", "name": "Jungle Edge"},
-  "24": {"icon": "-32px -48px", "id": "deep_ocean", "name": "Deep Ocean"},
-  "25": {"icon": "0px -48px", "id": "stone_shore", "name": "Stone Shore"},
-  "26": {"icon": "-16px -48px", "id": "snowy_beach", "name": "Snowy Beach"},
-  "27": {"icon": "-80px -32px", "id": "birch_forest", "name": "Birch Forest"},
-  "28": {
-    "icon": "-64px -32px",
-    "id": "birch_forest_hills",
-    "name": "Birch Forest Hills"
-  },
-  "29": {"icon": "-112px -32px", "id": "dark_forest", "name": "Dark Forest"},
-  "30": {"icon": "-96px 0px", "id": "snowy_taiga", "name": "Snowy Taiga"},
-  "31": {
-    "icon": "-64px -32px",
-    "id": "snowy_taiga_hills",
-    "name": "Snowy Taiga Hills"
-  },
-  "32": {
-    "icon": "-64px -16px",
-    "id": "giant_tree_taiga",
-    "name": "Giant Tree Taiga"
-  },
-  "33": {
-    "icon": "-64px -32px",
-    "id": "giant_tree_taiga_hills",
-    "name": "Giant Tree Taiga Hills"
-  },
-  "34": {
-    "icon": "-80px -48px",
-    "id": "wooded_mountains",
-    "name": "Wooded Mountains"
-  },
-  "35": {"icon": "-96px -32px", "id": "savanna", "name": "Savanna"},
-  "36": {
-    "icon": "-64px -32px",
-    "id": "savanna_plateau",
-    "name": "Savanna Plateau"
-  },
-  "37": {"icon": "-48px -16px", "id": "badlands", "name": "Badlands"},
-  "38": {
-    "icon": "-96px -64px",
-    "id": "wooded_badlands_plateau",
-    "name": "Wooded Badlands Plateau"
-  },
-  "39": {
-    "icon": "-64px -32px",
-    "id": "badlands_plateau",
-    "name": "Badlands Plateau"
-  },
-  "40": {
-    "icon": "-64px -112px",
-    "id": "small_end_islands",
-    "name": "Small End Islands"
-  },
-  "41": {"icon": "-80px -112px", "id": "end_midlands", "name": "End Midlands"},
-  "42": {
-    "icon": "-48px -112px",
-    "id": "end_highlands",
-    "name": "End Highlands"
-  },
-  "43": {"icon": "-96px -112px", "id": "end_barrens", "name": "End Barrens"},
-  "44": {"icon": "-64px -128px", "id": "warm_ocean", "name": "Warm Ocean"},
-  "45": {
-    "icon": "-32px -128px",
-    "id": "lukewarm_ocean",
-    "name": "Lukewarm Ocean"
-  },
-  "46": {"icon": "-112px -112px", "id": "cold_ocean", "name": "Cold Ocean"},
-  "47": {
-    "icon": "-112px -176px",
-    "id": "deep_warm_ocean",
-    "name": "Deep Warm Ocean"
-  },
-  "48": {
-    "icon": "-16px -128px",
-    "id": "deep_lukewarm_ocean",
-    "name": "Deep Lukewarm Ocean"
-  },
-  "49": {
-    "icon": "0px -128px",
-    "id": "deep_cold_ocean",
-    "name": "Deep Cold Ocean"
-  },
-  "50": {
-    "icon": "0px -112px",
-    "id": "deep_frozen_ocean",
-    "name": "Deep Frozen Ocean"
-  },
-  "127": {"icon": "-48px -48px", "id": "the_void", "name": "The Void"},
-  "129": {
+  "2": {
     "icon": "0px -64px",
     "id": "sunflower_plains",
     "name": "Sunflower Plains"
   },
-  "130": {"icon": "-48px -64px", "id": "desert_lakes", "name": "Desert Lakes"},
-  "131": {
-    "icon": "-48px -80px",
-    "id": "gravelly_mountains",
-    "name": "Gravelly Mountains"
+  "3": {"icon": "-80px 0px", "id": "snowy_plains", "name": "Snowy Plains"},
+  "4": {"icon": "0px -80px", "id": "ice_spikes", "name": "Ice Spikes"},
+  "5": {"icon": "-16px 0px", "id": "desert", "name": "Desert"},
+  "6": {"icon": "-48px 0px", "id": "swamp", "name": "Swamp"},
+  "7": {
+    "icon": "-48px -176px",
+    "id": "mangrove_swamp",
+    "name": "Mangrove Swamp"
   },
-  "132": {
-    "icon": "-16px -64px",
-    "id": "flower_forest",
-    "name": "Flower Forest"
-  },
-  "133": {
-    "icon": "-96px -48px",
-    "id": "taiga_mountains",
-    "name": "Taiga Mountains"
-  },
-  "134": {"icon": "-48px 0px", "id": "swamp_hills", "name": "Swamp Hills"},
-  "140": {"icon": "0px -80px", "id": "ice_spikes", "name": "Ice Spikes"},
-  "149": {
-    "icon": "-64px 0px",
-    "id": "modified_jungle",
-    "name": "Modified Jungle"
-  },
-  "151": {
-    "icon": "-64px -64px",
-    "id": "modified_jungle_edge",
-    "name": "Modified Jungle Edge"
-  },
-  "155": {
+  "8": {"icon": "0px 0px", "id": "forest", "name": "Forest"},
+  "9": {"icon": "-16px -64px", "id": "flower_forest", "name": "Flower Forest"},
+  "10": {"icon": "-80px -32px", "id": "birch_forest", "name": "Birch Forest"},
+  "11": {"icon": "-112px -32px", "id": "dark_forest", "name": "Dark Forest"},
+  "12": {
     "icon": "-32px -64px",
-    "id": "tall_birch_forest",
-    "name": "Tall Birch Forest"
+    "id": "old_growth_birch_forest",
+    "name": "Old Growth Birch Forest"
   },
-  "156": {
-    "icon": "-64px -32px",
-    "id": "tall_birch_hills",
-    "name": "Tall Birch Hills"
+  "13": {
+    "icon": "-64px -16px",
+    "id": "old_growth_pine_taiga",
+    "name": "Old Growth Pine Taiga"
   },
-  "157": {
-    "icon": "-112px -32px",
-    "id": "dark_forest_hills",
-    "name": "Dark Forest Hills"
-  },
-  "158": {
-    "icon": "-96px 0px",
-    "id": "snowy_taiga_mountains",
-    "name": "Snowy Taiga Mountains"
-  },
-  "160": {
+  "14": {
     "icon": "-112px -48px",
-    "id": "giant_spruce_taiga",
-    "name": "Giant Spruce Taiga"
+    "id": "old_growth_spruce_taiga",
+    "name": "Old Growth Spruce Taiga"
   },
-  "161": {
-    "icon": "-64px -32px",
-    "id": "giant_spruce_taiga_hills",
-    "name": "Giant Spruce Taiga Hills"
+  "15": {"icon": "-96px -48px", "id": "taiga", "name": "Taiga"},
+  "16": {"icon": "-96px 0px", "id": "snowy_taiga", "name": "Snowy Taiga"},
+  "17": {"icon": "-96px -32px", "id": "savanna", "name": "Savanna"},
+  "18": {
+    "icon": "-32px -96px",
+    "id": "savanna_plateau",
+    "name": "Savanna Plateau"
   },
-  "162": {
+  "19": {
+    "icon": "-112px 0px",
+    "id": "windswept_hills",
+    "name": "Windswept Hills"
+  },
+  "20": {
+    "icon": "-48px -80px",
+    "id": "windswept_gravelly_hills",
+    "name": "Windswept Gravelly Hills"
+  },
+  "21": {
     "icon": "-80px -48px",
-    "id": "modified_gravelly_mountains",
-    "name": "Gravelly Mountains+"
+    "id": "windswept_forest",
+    "name": "Windswept Forest"
   },
-  "163": {
+  "22": {
     "icon": "-80px -64px",
-    "id": "shattered_savanna",
-    "name": "Shattered Savanna"
+    "id": "windswept_savanna",
+    "name": "Windswept Savanna"
   },
-  "164": {
-    "icon": "-64px -32px",
-    "id": "shattered_savanna_plateau",
-    "name": "Shattered Savanna Plateau"
-  },
-  "165": {
-    "icon": "-112px -64px",
-    "id": "eroded_badlands",
-    "name": "Eroded Badlands"
-  },
-  "166": {
-    "icon": "-96px -64px",
-    "id": "modified_wooded_badlands_plateau",
-    "name": "Modified Wooded Badlands Plateau"
-  },
-  "167": {
-    "icon": "-64px -32px",
-    "id": "modified_badlands_plateau",
-    "name": "Modified Badlands Plateau"
-  },
-  "168": {
+  "23": {"icon": "-64px 0px", "id": "jungle", "name": "Jungle"},
+  "24": {"icon": "-64px -64px", "id": "sparse_jungle", "name": "Sparse Jungle"},
+  "25": {
     "icon": "-80px -128px",
     "id": "bamboo_jungle",
     "name": "Bamboo Jungle"
   },
-  "169": {
-    "icon": "-96px -128px",
-    "id": "bamboo_jungle_hills",
-    "name": "Bamboo Jungle Hills"
+  "26": {"icon": "-48px -16px", "id": "badlands", "name": "Badlands"},
+  "27": {
+    "icon": "-112px -64px",
+    "id": "eroded_badlands",
+    "name": "Eroded Badlands"
   },
+  "28": {
+    "icon": "-96px -64px",
+    "id": "wooded_badlands",
+    "name": "Wooded Badlands"
+  },
+  "29": {"icon": "-64px -160px", "id": "meadow", "name": "Meadow"},
+  "30": {"icon": "-80px -176px", "id": "cherry_grove", "name": "Cherry Grove"},
+  "31": {"icon": "-80px -160px", "id": "grove", "name": "Grove"},
+  "32": {"icon": "-96px -160px", "id": "snowy_slopes", "name": "Snowy Slopes"},
+  "33": {"icon": "0px -176px", "id": "frozen_peaks", "name": "Frozen Peaks"},
+  "34": {"icon": "-112px -160px", "id": "jagged_peaks", "name": "Jagged Peaks"},
+  "35": {"icon": "-32px -176px", "id": "stony_peaks", "name": "Stony Peaks"},
+  "36": {"icon": "-80px -16px", "id": "river", "name": "River"},
+  "37": {"icon": "-96px -16px", "id": "frozen_river", "name": "Frozen River"},
+  "38": {"icon": "-112px -16px", "id": "beach", "name": "Beach"},
+  "39": {"icon": "-16px -48px", "id": "snowy_beach", "name": "Snowy Beach"},
+  "40": {"icon": "0px -48px", "id": "stony_shore", "name": "Stony Shore"},
+  "41": {"icon": "-64px -128px", "id": "warm_ocean", "name": "Warm Ocean"},
+  "42": {
+    "icon": "-32px -128px",
+    "id": "lukewarm_ocean",
+    "name": "Lukewarm Ocean"
+  },
+  "43": {
+    "icon": "-16px -128px",
+    "id": "deep_lukewarm_ocean",
+    "name": "Deep Lukewarm Ocean"
+  },
+  "44": {"icon": "-16px -32px", "id": "ocean", "name": "Ocean"},
+  "45": {"icon": "-32px -48px", "id": "deep_ocean", "name": "Deep Ocean"},
+  "46": {"icon": "-112px -112px", "id": "cold_ocean", "name": "Cold Ocean"},
+  "47": {
+    "icon": "0px -128px",
+    "id": "deep_cold_ocean",
+    "name": "Deep Cold Ocean"
+  },
+  "48": {"icon": "-32px -32px", "id": "frozen_ocean", "name": "Frozen Ocean"},
+  "49": {
+    "icon": "0px -112px",
+    "id": "deep_frozen_ocean",
+    "name": "Deep Frozen Ocean"
+  },
+  "50": {
+    "icon": "0px -16px",
+    "id": "mushroom_fields",
+    "name": "Mushroom Fields"
+  },
+  "51": {
+    "icon": "-48px -160px",
+    "id": "dripstone_caves",
+    "name": "Dripstone Caves"
+  },
+  "52": {"icon": "-16px -176px", "id": "lush_caves", "name": "Lush Caves"},
+  "53": {"icon": "-64px -176px", "id": "deep_dark", "name": "Deep Dark"},
+  "54": {"icon": "-16px -16px", "id": "nether_wastes", "name": "Nether Wastes"},
+  "55": {"icon": "0px -160px", "id": "warped_forest", "name": "Warped Forest"},
+  "56": {
+    "icon": "-112px -144px",
+    "id": "crimson_forest",
+    "name": "Crimson Forest"
+  },
+  "57": {
+    "icon": "-16px -160px",
+    "id": "soul_sand_valley",
+    "name": "Soul Sand Valley"
+  },
+  "58": {
+    "icon": "-32px -160px",
+    "id": "basalt_deltas",
+    "name": "Basalt Deltas"
+  },
+  "59": {"icon": "-32px -16px", "id": "the_end", "name": "The End"},
+  "60": {
+    "icon": "-48px -112px",
+    "id": "end_highlands",
+    "name": "End Highlands"
+  },
+  "61": {"icon": "-80px -112px", "id": "end_midlands", "name": "End Midlands"},
+  "62": {
+    "icon": "-64px -112px",
+    "id": "small_end_islands",
+    "name": "Small End Islands"
+  },
+  "63": {"icon": "-96px -112px", "id": "end_barrens", "name": "End Barrens"},
   "": {"icon": "-112px -176px", "id": "unknown", "name": "Unknown"}
 }

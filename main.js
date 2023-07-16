@@ -2,6 +2,7 @@ import Storage from './Storage.js';
 import Places from './Places.js';
 import PlaceUI from './PlaceUI.js';
 import {loadJSON, downloadJSON, createUploader} from './file-io.js';
+import {upgradePlaces} from './upgrade-places.js';
 import {
   initImportModal,
   initResetModal,
@@ -24,12 +25,13 @@ window.addEventListener('DOMContentLoaded', async () => {
   const places = new Places(container, placeUI, biomes, storage);
   places.refresh();
 
-  const clipboard = new ClipboardJS(
-    '#places-container .btn[data-clipboard-text]'
-  );
+  new ClipboardJS('#places-container .btn[data-clipboard-text]');
 
   const uploader = createUploader('#places-uploader', (event) => {
-    places.cache = JSON.parse(event.target.result);
+    let data = JSON.parse(event.target.result);
+    if (Array.isArray(data)) data = {places: data};
+
+    places.cache = upgradePlaces(data);
     places.refresh();
   });
 

@@ -1,4 +1,5 @@
 import {clearElement, createIconButton, createBiomeTag} from './dom-util.js';
+import {createDefaultPlaces, upgradePlaces} from './upgrade-places.js';
 
 export default class Places {
   constructor(container, placeUI, biomes, storage) {
@@ -6,7 +7,11 @@ export default class Places {
     this.placeUI = placeUI;
     this.biomes = biomes;
     this.storage = storage;
-    this.cache = storage.get('places') ?? [];
+
+    let data = storage.get('places') ?? createDefaultPlaces();
+    if (Array.isArray(data)) data = {places: data};
+
+    this.cache = upgradePlaces(data);
 
     placeUI.addEventListener('add', (event) => this.add(event.detail.place));
     placeUI.addEventListener('edit', (event) => {
@@ -20,7 +25,7 @@ export default class Places {
       if (!rowAbove) return;
 
       const index = row.rowIndex - 1;
-      arraySwap(index, index - 1, this.cache);
+      arraySwap(index, index - 1, this.cache.places);
       this.storage.set('places', this.cache);
       rowAbove.before(row);
     };
@@ -30,19 +35,19 @@ export default class Places {
       if (!rowBelow) return;
 
       const index = row.rowIndex - 1;
-      arraySwap(index, index + 1, this.cache);
+      arraySwap(index, index + 1, this.cache.places);
       this.storage.set('places', this.cache);
       rowBelow.after(row);
     };
     this.edit = (event) => {
       const row = event.target.closest('tr');
       const index = row.rowIndex - 1;
-      this.placeUI.renderEdit(this.cache[index], index);
+      this.placeUI.renderEdit(this.cache.places[index], index);
     };
     this.remove = (event) => {
       const row = event.target.closest('tr');
       const index = row.rowIndex - 1;
-      this.cache.splice(index, 1);
+      this.cache.places.splice(index, 1);
       this.storage.set('places', this.cache);
       row.remove();
 
@@ -61,7 +66,7 @@ export default class Places {
   }
 
   add(place) {
-    this.cache.push(place);
+    this.cache.places.push(place);
     this.storage.set('places', this.cache);
 
     if (this.container.firstElementChild.dataset.empty) {
@@ -71,27 +76,27 @@ export default class Places {
   }
 
   replace(index, place) {
-    this.cache[index] = place;
+    this.cache.places[index] = place;
     this.storage.set('places', this.cache);
     const placeRow = renderPlace(index, this);
     this.container.children[index].replaceWith(placeRow);
   }
 
   isEmpty() {
-    return this.cache.length === 0;
+    return this.cache.places.length === 0;
   }
 
   clear() {
-    this.cache = [];
+    this.cache.places = [];
     this.refresh();
   }
 
   item(index) {
-    return this.cache[index];
+    return this.cache.places[index];
   }
 
   size() {
-    return this.cache.length;
+    return this.cache.places.length;
   }
 }
 
