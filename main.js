@@ -22,6 +22,9 @@ window.addEventListener('DOMContentLoaded', async () => {
 
   const container = document.getElementById('places-container');
   const placeUI = new PlaceUI(document.querySelector('form'), biomes);
+  placeUI.form.addEventListener('reset', () => {
+    updateBiomeIcon('', '#biome-select-icon', biomes);
+  });
   const places = new Places(container, placeUI, biomes, storage);
   places.refresh();
 
